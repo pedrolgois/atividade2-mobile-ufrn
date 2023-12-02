@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class CadastroActivity extends AppCompatActivity {
+public class ProductCreateActivity extends AppCompatActivity {
 
     private EditText codeEditText, nameEditText, descriptionEditText, stockEditText;
 

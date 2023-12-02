@@ -12,7 +12,7 @@ import android.content.DialogInterface;
 
 import java.util.List;
 
-public class ListagemActivity extends AppCompatActivity {
+public class ProductListActivity extends AppCompatActivity {
 
     private ArrayAdapter<Product> adapter;
 
@@ -21,28 +21,28 @@ public class ListagemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listagem);
 
-        ListView listaView = findViewById(R.id.lista);
-        Button voltarButton = findViewById(R.id.voltarButton);
+        ListView listView = findViewById(R.id.lista);
+        Button goBackButton = findViewById(R.id.voltarButton);
 
-        List<Product> listaProdutos = ProductManager.getProductList();
+        List<Product> productList = ProductManager.getProductList();
 
-        if (listaProdutos != null) {
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listaProdutos);
-            listaView.setAdapter(adapter);
+        if (productList != null) {
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, productList);
+            listView.setAdapter(adapter);
 
-            listaView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    Product produto = adapter.getItem(position);
+                    Product product = adapter.getItem(position);
 
-                    if (produto != null) {
-                        String mensagem = "Código: " + produto.getProductCode() + "\n" +
-                                "Nome: " + produto.getProductName() + "\n" +
-                                "Descrição: " + produto.getProductDescription() + "\n" +
-                                "Estoque: " + produto.getProductStock();
+                    if (product != null) {
+                        String message = "Código: " + product.getProductCode() + "\n" +
+                                "Nome: " + product.getProductName() + "\n" +
+                                "Descrição: " + product.getProductDescription() + "\n" +
+                                "Estoque: " + product.getProductStock();
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(ListagemActivity.this);
-                        builder.setMessage(mensagem)
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ProductListActivity.this);
+                        builder.setMessage(message)
                                 .setTitle("Detalhes do Produto")
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
@@ -54,7 +54,7 @@ public class ListagemActivity extends AppCompatActivity {
             });
         }
 
-        voltarButton.setOnClickListener(new View.OnClickListener() {
+        goBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();

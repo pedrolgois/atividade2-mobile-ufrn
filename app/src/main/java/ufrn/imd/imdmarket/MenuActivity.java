@@ -59,7 +59,7 @@ public class MenuActivity extends AppCompatActivity {
         buttonCadastrarProduto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this, CadastroActivity.class);
+                Intent intent = new Intent(MenuActivity.this, ProductCreateActivity.class);
                 startActivity(intent);
             }
         });
@@ -67,7 +67,7 @@ public class MenuActivity extends AppCompatActivity {
         buttonAlterarProdutos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this, AlteracaoActivity.class);
+                Intent intent = new Intent(MenuActivity.this, ProductUpdateActivity.class);
                 startActivity(intent);
             }
         });
@@ -75,7 +75,7 @@ public class MenuActivity extends AppCompatActivity {
         buttonDeletarProdutos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this, ExclusaoActivity.class);
+                Intent intent = new Intent(MenuActivity.this, ProductDeleteActivity.class);
                 startActivity(intent);
             }
         });
@@ -83,7 +83,7 @@ public class MenuActivity extends AppCompatActivity {
         buttonListarProdutos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this, ListagemActivity.class);
+                Intent intent = new Intent(MenuActivity.this, ProductListActivity.class);
                 startActivity(intent);
             }
         });

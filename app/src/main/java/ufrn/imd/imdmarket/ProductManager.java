@@ -28,9 +28,9 @@ public class ProductManager {
     }
 
     public static Product getProductByCode(String productCode) {
-        for (Product produto : productList) {
-            if (produto.getProductCode().equals(productCode)) {
-                return produto;
+        for (Product product : productList) {
+            if (product.getProductCode().equals(productCode)) {
+                return product;
             }
         }
         return null;
