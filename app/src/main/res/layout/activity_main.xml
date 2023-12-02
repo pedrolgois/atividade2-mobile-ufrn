@@ -98,11 +98,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:onClick="showChangePasswordDialog"
         android:text="@string/esqueci_senha"
         android:textColor="@color/blue"
         android:textSize="16sp"
-        android:clickable="true"
-        android:onClick="exibirDialogAlterarSenha"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/entrarButton" />

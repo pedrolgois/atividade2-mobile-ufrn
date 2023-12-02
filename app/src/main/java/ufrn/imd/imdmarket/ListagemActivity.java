@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ListagemActivity extends AppCompatActivity {
 
-    private ArrayAdapter<Produto> adapter;
+    private ArrayAdapter<Product> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class ListagemActivity extends AppCompatActivity {
         ListView listaView = findViewById(R.id.lista);
         Button voltarButton = findViewById(R.id.voltarButton);
 
-        List<Produto> listaProdutos = ProdutoManager.getListaProdutos();
+        List<Product> listaProdutos = ProductManager.getProductList();
 
         if (listaProdutos != null) {
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listaProdutos);
@@ -33,13 +33,13 @@ public class ListagemActivity extends AppCompatActivity {
             listaView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    Produto produto = adapter.getItem(position);
+                    Product produto = adapter.getItem(position);
 
                     if (produto != null) {
-                        String mensagem = "Código: " + produto.getCodigoProduto() + "\n" +
-                                "Nome: " + produto.getNomeProduto() + "\n" +
-                                "Descrição: " + produto.getDescricaoProduto() + "\n" +
-                                "Estoque: " + produto.getEstoque();
+                        String mensagem = "Código: " + produto.getProductCode() + "\n" +
+                                "Nome: " + produto.getProductName() + "\n" +
+                                "Descrição: " + produto.getProductDescription() + "\n" +
+                                "Estoque: " + produto.getProductStock();
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(ListagemActivity.this);
                         builder.setMessage(mensagem)

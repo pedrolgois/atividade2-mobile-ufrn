@@ -10,62 +10,58 @@ import android.widget.Toast;
 
 public class CadastroActivity extends AppCompatActivity {
 
-    private EditText codigoEditText, nomeEditText, descricaoEditText, estoqueEditText;
+    private EditText codeEditText, nameEditText, descriptionEditText, stockEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
 
-        codigoEditText = findViewById(R.id.codigo);
-        nomeEditText = findViewById(R.id.nome);
-        descricaoEditText = findViewById(R.id.descricao);
-        estoqueEditText = findViewById(R.id.estoque);
+        codeEditText = findViewById(R.id.codigo);
+        nameEditText = findViewById(R.id.nome);
+        descriptionEditText = findViewById(R.id.descricao);
+        stockEditText = findViewById(R.id.estoque);
 
-        Button salvarButton = findViewById(R.id.salvarButton);
-        Button limparButton = findViewById(R.id.limparButton);
+        Button saveButton = findViewById(R.id.salvarButton);
+        Button clearButton = findViewById(R.id.limparButton);
 
-        salvarButton.setOnClickListener(new View.OnClickListener() {
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cadastrarProduto();
+                registerProduct();
             }
         });
 
-        limparButton.setOnClickListener(new View.OnClickListener() {
+        clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                limparCampos();
+                clearFields();
             }
         });
     }
 
-    private void cadastrarProduto() {
-        String codigo = codigoEditText.getText().toString();
-        String nome = nomeEditText.getText().toString();
-        String descricao = descricaoEditText.getText().toString();
-        String estoqueStr = estoqueEditText.getText().toString();
+    private void registerProduct() {
+        String code = codeEditText.getText().toString();
+        String name = nameEditText.getText().toString();
+        String description = descriptionEditText.getText().toString();
+        String stock = stockEditText.getText().toString();
 
-        if (codigo.isEmpty() || nome.isEmpty() || descricao.isEmpty() || estoqueStr.isEmpty()) {
-            Toast.makeText(this, "Preencha todos os campos.", Toast.LENGTH_SHORT).show();
+        if (code.isEmpty() || name.isEmpty() || description.isEmpty() || stock.isEmpty()) {
+            Toast.makeText(this, "Complete todos os campos antes de cadastrar o produto.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        int estoque = Integer.parseInt(estoqueStr);
+        Product produto = new Product(code, name, description, Integer.parseInt(stock));
+        ProductManager.getInstance().addProduct(produto);
 
-        Produto produto = new Produto(codigo, nome, descricao, estoque);
-
-        ProdutoManager.getInstance().adicionarProduto(produto);
-
-        Toast.makeText(this, "Produto cadastrado com sucesso.", Toast.LENGTH_SHORT).show();
-
-        limparCampos();
+        clearFields();
+        Toast.makeText(this, "Produto cadastrado.", Toast.LENGTH_SHORT).show();
     }
 
-    private void limparCampos() {
-        codigoEditText.setText("");
-        nomeEditText.setText("");
-        descricaoEditText.setText("");
-        estoqueEditText.setText("");
+    private void clearFields() {
+        codeEditText.setText("");
+        nameEditText.setText("");
+        descriptionEditText.setText("");
+        stockEditText.setText("");
     }
 }

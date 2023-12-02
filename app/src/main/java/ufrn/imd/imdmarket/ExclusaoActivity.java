@@ -40,7 +40,7 @@ public class ExclusaoActivity extends AppCompatActivity {
         String codigoProduto = codigoEditText.getText().toString().trim();
 
         if (!codigoProduto.isEmpty()) {
-            boolean produtoExcluido = ProdutoManager.excluirProdutoByCodigo(codigoProduto);
+            boolean produtoExcluido = ProductManager.removeProductByCode(codigoProduto);
 
             if (produtoExcluido) {
                 Toast.makeText(this, "Produto excluído com sucesso!", Toast.LENGTH_SHORT).show();

@@ -51,20 +51,20 @@ public class AlteracaoActivity extends AppCompatActivity {
             return;
         }
 
-        Produto produto = ProdutoManager.getProdutoByCodigo(codigo);
+        Product produto = ProductManager.getProductByCode(codigo);
 
         if (produto != null) {
             if (!nome.isEmpty()) {
-                produto.setNomeProduto(nome);
+                produto.setProductName(nome);
             }
 
             if (!descricao.isEmpty()) {
-                produto.setDescricaoProduto(descricao);
+                produto.setProductDescription(descricao);
             }
 
             if (!estoqueStr.isEmpty()) {
                 int estoque = Integer.parseInt(estoqueStr);
-                produto.setEstoque(estoque);
+                produto.setProductStock(estoque);
             }
 
             Toast.makeText(this, "Produto alterado com sucesso.", Toast.LENGTH_SHORT).show();

@@ -1,5 +1,4 @@
 package ufrn.imd.imdmarket;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -23,14 +22,41 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        lerArquivoProdutos();
+        try {
+            InputStreamReader file = new InputStreamReader(openFileInput("produtos"));
+            BufferedReader bufferedReader = new BufferedReader(file);
+            String line = bufferedReader.readLine();
 
-        Button btnCadastrar = findViewById(R.id.cadastrar);
-        Button btnAlterar = findViewById(R.id.alterar);
-        Button btnExcluir = findViewById(R.id.deletar);
-        Button btnListar = findViewById(R.id.listar);
+            while (line != null) {
+                String[] productData = line.split(";");
 
-        btnCadastrar.setOnClickListener(new View.OnClickListener() {
+                if (productData.length >= 4) {
+                    Product produto = new Product(
+                            productData[0],
+                            productData[1],
+                            productData[2],
+                            Integer.parseInt(productData[3])
+                    );
+
+                    ProductManager.getInstance().addProduct(produto);
+                    line = bufferedReader.readLine();
+                } else {
+                    Toast.makeText(this, "Linha incorreta: " + line, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            file.close();
+
+        } catch (IOException e) {
+            Toast.makeText(this, "Erro ao ler o arquivo de produtos", Toast.LENGTH_LONG).show();
+        }
+
+        Button buttonCadastrarProduto = findViewById(R.id.cadastrar);
+        Button buttonAlterarProdutos = findViewById(R.id.alterar);
+        Button buttonDeletarProdutos = findViewById(R.id.deletar);
+        Button buttonListarProdutos = findViewById(R.id.listar);
+
+        buttonCadastrarProduto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MenuActivity.this, CadastroActivity.class);
@@ -38,7 +64,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        btnAlterar.setOnClickListener(new View.OnClickListener() {
+        buttonAlterarProdutos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MenuActivity.this, AlteracaoActivity.class);
@@ -46,7 +72,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        btnExcluir.setOnClickListener(new View.OnClickListener() {
+        buttonDeletarProdutos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MenuActivity.this, ExclusaoActivity.class);
@@ -54,7 +80,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        btnListar.setOnClickListener(new View.OnClickListener() {
+        buttonListarProdutos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MenuActivity.this, ListagemActivity.class);
@@ -66,51 +92,17 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        salvarArquivoProdutos();
-    }
-
-    private void lerArquivoProdutos() {
-        try {
-            InputStreamReader arquivo = new InputStreamReader(openFileInput("produtos"));
-            BufferedReader bufferedReader = new BufferedReader(arquivo);
-            String linha = bufferedReader.readLine();
-
-            while (linha != null) {
-                String[] dadosProduto = linha.split(";");
-
-                if (dadosProduto.length >= 4) {
-                    Produto produto = new Produto(
-                            dadosProduto[0],
-                            dadosProduto[1],
-                            dadosProduto[2],
-                            Integer.parseInt(dadosProduto[3])
-                    );
-
-                    ProdutoManager.getInstance().adicionarProduto(produto);
-                    linha = bufferedReader.readLine();
-                } else {
-                    Toast.makeText(this, "Linha inválida: " + linha, Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            arquivo.close();
-        } catch (IOException e) {
-            Toast.makeText(this, "Não foi possível ler o arquivo de produtos", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void salvarArquivoProdutos() {
         try {
             FileOutputStream arquivo = openFileOutput("produtos", Context.MODE_PRIVATE);
             OutputStreamWriter escritor = new OutputStreamWriter(arquivo);
 
-            List<Produto> listaProdutos = ProdutoManager.getListaProdutos();
+            List<Product> listaProdutos = ProductManager.getProductList();
 
-            for (Produto produto : listaProdutos) {
-                String linha = produto.getCodigoProduto() + ";" +
-                        produto.getNomeProduto() + ";" +
-                        produto.getDescricaoProduto() + ";" +
-                        produto.getEstoque() + ";\n";
+            for (Product produto : listaProdutos) {
+                String linha = produto.getProductCode() + ";" +
+                        produto.getProductName() + ";" +
+                        produto.getProductDescription() + ";" +
+                        produto.getProductStock() + ";\n";
                 escritor.write(linha);
             }
 
