@@ -13,16 +13,16 @@
         android:theme="@style/Theme.IMDMarket"
         tools:targetApi="31">
         <activity
-            android:name=".ListagemActivity"
+            android:name=".ProductListActivity"
             android:exported="false" />
         <activity
-            android:name=".ExclusaoActivity"
+            android:name=".ProductDeleteActivity"
             android:exported="false" />
         <activity
-            android:name=".AlteracaoActivity"
+            android:name=".ProductUpdateActivity"
             android:exported="false" />
         <activity
-            android:name=".CadastroActivity"
+            android:name=".ProductCreateActivity"
             android:exported="false" />
         <activity
             android:name=".MenuActivity"
